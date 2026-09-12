@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-main: #08090d;
+  --bg-card: #11131c;
+  --bg-card-hover: #171b28;
+  --border-color: #1f2538;
+  --accent-cyan: #00f0ff;
+  --accent-gold: #fbbf24;
+  --accent-purple: #a855f7;
+  --accent-glow: rgba(0, 240, 255, 0.25);
+}
+
+[data-theme="arcane"] {
+  --bg-main: #0c0714;
+  --bg-card: #160f24;
+  --bg-card-hover: #201535;
+  --border-color: #2e1d4a;
+  --accent-cyan: #c084fc;
+  --accent-gold: #f472b6;
+  --accent-purple: #9333ea;
+  --accent-glow: rgba(168, 85, 247, 0.35);
+}
+
+[data-theme="emerald"] {
+  --bg-main: #050e09;
+  --bg-card: #0c1c14;
+  --bg-card-hover: #12281d;
+  --border-color: #1a3c2b;
+  --accent-cyan: #10b981;
+  --accent-gold: #fbbf24;
+  --accent-purple: #34d399;
+  --accent-glow: rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="neon"] {
+  --bg-main: #0d0414;
+  --bg-card: #1c082b;
+  --bg-card-hover: #280c3d;
+  --border-color: #3b1257;
+  --accent-cyan: #00f0ff;
+  --accent-gold: #ec4899;
+  --accent-purple: #d946ef;
+  --accent-glow: rgba(236, 72, 153, 0.35);
+}
+
+[data-theme="midnight"] {
+  --bg-main: #040406;
+  --bg-card: #0d0d12;
+  --bg-card-hover: #15151e;
+  --border-color: #1e1e2b;
+  --accent-cyan: #94a3b8;
+  --accent-gold: #fbbf24;
+  --accent-purple: #64748b;
+  --accent-glow: rgba(251, 191, 36, 0.25);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: #f3f4f6;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+}
+
+/* Custom RPG Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Glassmorphic Cards */
+.glass-panel {
+  background: rgba(17, 19, 28, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+}
+
+.glass-panel:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 16px rgba(251, 191, 36, 0.6);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 16px rgba(168, 85, 247, 0.6);
+}
