@@ -2,7 +2,7 @@
 
 > **"Turn everyday goals into quests, build unstoppable streaks, defeat procrastination bosses, and upgrade your character stats in real life."**
 
-[![CI Pipeline](https://github.com/your-username/life-rpg/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/life-rpg/actions)
+[![CI Pipeline](https://github.com/Nirman1211/life-rpg/actions/workflows/ci.yml/badge.svg)](https://github.com/Nirman1211/life-rpg/actions)
 ![Next.js 15](https://img.shields.io/badge/Next.js-15.2-black?logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.4-38bdf8?logo=tailwind-css)
@@ -102,7 +102,7 @@ Earned Gold is spent in the shop to purchase visual themes (**Cyberpunk**, **Arc
 ### Step-by-Step Launch (Under 60 seconds)
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/life-rpg.git
+git clone https://github.com/Nirman1211/life-rpg.git
 cd life-rpg
 
 # 2. Install dependencies
