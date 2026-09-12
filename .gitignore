@@ -10,6 +10,7 @@
 # Production build
 /build
 /dist
+tsconfig.tsbuildinfo
 
 # SQLite / Local DB test files
 *.db
