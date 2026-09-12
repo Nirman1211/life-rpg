@@ -25,6 +25,7 @@ export const prisma =
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
   });
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+// Cache Prisma client across serverless lambda invocations to reuse connection pools
+globalForPrisma.prisma = prisma;
 
 export default prisma;

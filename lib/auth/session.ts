@@ -60,9 +60,14 @@ export async function getCurrentUser() {
 }
 
 export async function requireAuth() {
-  const user = await getCurrentUser();
-  if (!user) {
+  const payload = await getSessionPayload();
+  if (!payload?.userId) {
     throw new Error("UNAUTHORIZED");
   }
-  return user;
+  return {
+    id: payload.userId,
+    email: payload.email,
+    role: (payload.role as string) || "USER",
+  };
 }
+

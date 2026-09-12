@@ -100,11 +100,17 @@ export async function POST(
             where: { userId: user.id },
             data: { totalXp: { increment: numVal } },
           });
-        } else if (boostType === "focus" && user.character?.attributes?.id) {
-          await tx.attributes.update({
-            where: { characterId: user.character.id },
-            data: { focus: { increment: numVal } },
+        } else if (boostType === "focus") {
+          const char = await tx.character.findUnique({
+            where: { userId: user.id },
+            include: { attributes: true },
           });
+          if (char?.attributes?.id) {
+            await tx.attributes.update({
+              where: { characterId: char.id },
+              data: { focus: { increment: numVal } },
+            });
+          }
         }
       }
 
