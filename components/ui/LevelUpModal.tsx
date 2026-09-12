@@ -22,48 +22,65 @@ export function LevelUpModal({
   goldBonus,
 }: LevelUpModalProps) {
   useEffect(() => {
-    if (isOpen) {
-      sound.playLevelUp();
+    if (!isOpen) return;
 
-      // Confetti burst
+    sound.playLevelUp();
+
+    // Confetti burst
+    confetti({
+      particleCount: 120,
+      spread: 80,
+      origin: { y: 0.6 },
+      colors: ["#00f0ff", "#fbbf24", "#a855f7", "#ffffff"],
+    });
+
+    const timer = setTimeout(() => {
       confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.6 },
-        colors: ["#00f0ff", "#fbbf24", "#a855f7", "#ffffff"],
+        particleCount: 80,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ["#00f0ff", "#fbbf24"],
       });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ["#a855f7", "#fbbf24"],
+      });
+    }, 300);
 
-      const timer = setTimeout(() => {
-        confetti({
-          particleCount: 80,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: ["#00f0ff", "#fbbf24"],
-        });
-        confetti({
-          particleCount: 80,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: ["#a855f7", "#fbbf24"],
-        });
-      }, 300);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen]);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="levelup-title"
+          onClick={onClose}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md cursor-pointer"
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-md p-8 rounded-2xl bg-gradient-to-b from-[#161a29] to-[#0d0f17] border-2 border-cyan-400/50 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-center overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md p-8 rounded-2xl bg-gradient-to-b from-[#161a29] to-[#0d0f17] border-2 border-cyan-400/50 shadow-[0_0_50px_rgba(0,240,255,0.3)] text-center overflow-hidden cursor-default"
           >
             {/* Background Glows */}
             <div className="absolute -top-24 -left-24 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl" />

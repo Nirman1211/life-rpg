@@ -188,6 +188,11 @@ export async function completeQuestTransaction(
     throw new Error("UNAUTHORIZED_QUEST_ACCESS");
   }
 
+  // If one-time quest is already completed, disallow repeat completion
+  if (quest.recurrence === "ONCE" && quest.status === "COMPLETED") {
+    throw new Error("ALREADY_COMPLETED");
+  }
+
   const userTimezone = user.profile?.timezone || user.settings?.timezone || "UTC";
   const todayStr = getDateString(new Date(), userTimezone);
 

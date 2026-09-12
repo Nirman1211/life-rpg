@@ -36,6 +36,15 @@ export default function BossQuestsPage() {
     fetchBosses();
   }, []);
 
+  useEffect(() => {
+    if (!showModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowModal(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showModal]);
+
   const fetchBosses = async () => {
     try {
       setLoading(true);
@@ -267,9 +276,18 @@ export default function BossQuestsPage() {
 
       {/* Summon Boss Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-lg p-6 rounded-3xl bg-[#111422] border border-red-500/40 shadow-2xl">
-            <h3 className="text-xl font-bold text-white mb-4 font-display flex items-center gap-2">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-boss-title"
+          onClick={() => setShowModal(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-lg p-6 rounded-3xl bg-[#111422] border border-red-500/40 shadow-2xl cursor-default"
+          >
+            <h3 id="modal-boss-title" className="text-xl font-bold text-white mb-4 font-display flex items-center gap-2">
               <Skull className="w-5 h-5 text-red-500" />
               Summon Boss Raid
             </h3>

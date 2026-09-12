@@ -54,6 +54,18 @@ export default function QuestsPage() {
     fetchCategories();
   }, [statusFilter, recurrenceFilter]);
 
+  useEffect(() => {
+    if (!showCreateModal && !showAiModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setShowCreateModal(false);
+        setShowAiModal(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showCreateModal, showAiModal]);
+
   const fetchQuests = async () => {
     try {
       setLoading(true);
@@ -398,9 +410,18 @@ export default function QuestsPage() {
 
       {/* Forge Quest Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-lg p-6 rounded-3xl bg-[#111422] border border-cyan-400/40 shadow-2xl">
-            <h3 className="text-xl font-bold text-white mb-4 font-display">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-forge-quest-title"
+          onClick={() => setShowCreateModal(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-lg p-6 rounded-3xl bg-[#111422] border border-cyan-400/40 shadow-2xl cursor-default"
+          >
+            <h3 id="modal-forge-quest-title" className="text-xl font-bold text-white mb-4 font-display">
               Forge New Quest
             </h3>
 
@@ -507,12 +528,21 @@ export default function QuestsPage() {
 
       {/* Smart AI Quest Assistant Modal */}
       {showAiModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-lg p-6 rounded-3xl bg-[#111422] border border-purple-500/40 shadow-[0_0_40px_rgba(168,85,247,0.25)]">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-ai-architect-title"
+          onClick={() => setShowAiModal(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md cursor-pointer"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-lg p-6 rounded-3xl bg-[#111422] border border-purple-500/40 shadow-[0_0_40px_rgba(168,85,247,0.25)] cursor-default"
+          >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-purple-400" />
-                <h3 className="text-xl font-bold text-white font-display">
+                <h3 id="modal-ai-architect-title" className="text-xl font-bold text-white font-display">
                   AI Quest Architect
                 </h3>
               </div>
