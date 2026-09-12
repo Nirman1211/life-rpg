@@ -10,8 +10,8 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL || 'postgresql://neondb_owner:npg_VL7DRX3fvOJN@ep-restless-waterfall-b3hi7n8t-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require' }}
-      JWT_SECRET: ${{ secrets.JWT_SECRET || 'liferpg_hyper_secret_jwt_key_hackathon_2026_gamify_reality_xyz' }}
+      DATABASE_URL: "postgresql://neondb_owner:npg_VL7DRX3fvOJN@ep-restless-waterfall-b3hi7n8t-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+      JWT_SECRET: "liferpg_hyper_secret_jwt_key_hackathon_2026_gamify_reality_xyz"
       NEXT_PUBLIC_APP_URL: "http://localhost:3000"
     steps:
       - name: Checkout code
