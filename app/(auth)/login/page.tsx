@@ -54,7 +54,7 @@ export default function LoginPage() {
         sound.playLevelUp();
         router.push("/dashboard");
       } else {
-        setError("Could not launch demo account. Please ensure database seed is run.");
+        setError(data.error?.message || "Could not launch demo account. Please check database connection.");
       }
     } catch {
       setError("Failed to connect to server.");
