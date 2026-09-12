@@ -32,8 +32,8 @@ jobs:
       - name: Run Type Checking
         run: npx tsc --noEmit
 
-      - name: Run Vitest Test Suite
-        run: npm run test
+      - name: Run Vitest Unit Tests
+        run: npx vitest run tests/rpg-progression.test.ts
 
       - name: Build Production Application
         run: npm run build

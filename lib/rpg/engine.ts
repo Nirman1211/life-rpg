@@ -438,16 +438,16 @@ export async function completeQuestTransaction(
 
     // 10. Check and Unlock Achievements
     const unlockedAchievements: any[] = [];
-    const userCompletedCount = await tx.questCompletion.count({ where: { userId } });
-    const userDefeatedBossCount = await tx.bossQuest.count({ where: { userId, isDefeated: true } });
-
-    // Fetch achievements user doesn't have yet
-    const existingUserAchIds = (
-      await tx.userAchievement.findMany({
+    const [userCompletedCount, userDefeatedBossCount, existingUserAch] = await Promise.all([
+      tx.questCompletion.count({ where: { userId } }),
+      tx.bossQuest.count({ where: { userId, isDefeated: true } }),
+      tx.userAchievement.findMany({
         where: { userId },
         select: { achievementId: true },
-      })
-    ).map((a) => a.achievementId);
+      }),
+    ]);
+
+    const existingUserAchIds = existingUserAch.map((a) => a.achievementId);
 
     const pendingAchievements = await tx.achievement.findMany({
       where: { id: { notIn: existingUserAchIds } },
@@ -532,5 +532,5 @@ export async function completeQuestTransaction(
       bossDamaged,
       bossDefeated,
     };
-  });
+  }, { maxWait: 15000, timeout: 30000 });
 }
